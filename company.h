@@ -1,45 +1,43 @@
 #pragma once
-#include <iostream>
+
+#include "commission_wage_worker.h"
+#include "hourly_wage_worker.h"
+#include "main.h"
+#include <stdexcept>
 #include <string>
-using namespace std;
-const int WORKERS_AMOUNT = 25;
-
-class Hourly_wage_workers {
-    private:
-        string full_name;
-        string gender;
-        int hours; // отработанные часы
-        int hourly_payment; // оплата за час
-        int hours_to_work; // часы работы
-        int additional_hours_payment; // оплата за переработку
-    public:
-        void set_full_name(string);
-        void set_gender(string);
-        void set_hourly_payment(int);
-        void set_working_hours(int);
-        void set_additional_payment(int);
-        void work(string, string, int, int, int, int);
-        int calculate_salary(int, int, int, int);
-};
-
-class Commission_wage_workers {
-    private:
-        string full_name;
-        string gender;
-        int wage; // оклаж
-        int percentage; // процент с продаж
-        int products_sold; // кол-во продаж
-    public:
-        void set_full_name(string);
-        void set_gender(string);
-        void set_wage(int);
-        void set_percentage(int);
-        void sell_products(int);
-        //int calculate_salary(int, int, int, int);
-};
+#include <cstring>
 
 class Company {
-    Hourly_wage_workers workers[WORKERS_AMOUNT]; // массив для сотрудников с почасовой оплатой  труда
-    Commission_wage_workers cworkers[WORKERS_AMOUNT]; // массив для сотрудников с комиссионной оплатой труда
-    int days_after_payday; // счетчик дней после ЗП
+private:
+  CommissionWageWorker *commissionWageWorkers;
+  std::size_t commissionWageWorkersCount;
+
+  HourlyWageWorker *hourlyWageWorkers;
+  std::size_t hourlyWageWorkersCount;
+
+  std::size_t workedDaysCount;
+  
+  int expenses;
+
+  void dismissHourlyWageWorker(std::size_t pos);
+  void dismissCommissionWageWorker(std::size_t pos);
+
+  bool isAlreadyRecruited(std::string fullName);
+
+public:
+  Company();
+
+  void recruitHourlyWageWorker(HourlyWageWorker& newWorker);
+
+  void recruitCommissionWageWorker(CommissionWageWorker& newWorker);
+
+  void dismissWorkerByFullname(std::string fullName);
+
+  void simulateWork(int);
+
+  std::size_t getHourlyWageWorkersCount();
+
+  std::size_t getCommissionWageWorkersCount();
+
+  void giveSalary();
 };
