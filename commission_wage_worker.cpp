@@ -1,4 +1,5 @@
 #include "commission_wage_worker.h"
+#include <iostream>
 
 CommissionWageWorker::CommissionWageWorker(std::string _fullName,
                                            Gender _gender, int _salary,
@@ -24,17 +25,46 @@ CommissionWageWorker::CommissionWageWorker(std::string _fullName,
   }
 }
 
-void CommissionWageWorker::setFullName(const std::string fn) { fullName = fn; }
+CommissionWageWorker enterCommissionWageWorker() {
+    while (1) 
+    {
+        Gender gender;
+        std::string fullName;
+        int salary, percentage, goodsSoldSum;
+        
+        std::cout << "Enter fullname: ";
+        std::cin >> fullName;
 
-std::string CommissionWageWorker::getFullName() { return fullName; }
+        std::cout << "Enter gender(1 - Male, 2 - Female): ";
+        std::cin >> gender;
 
-void CommissionWageWorker::setGender(const Gender g) { gender = g; }
+        std::cout << "Enter salary: ";
+        std::cin >> salary;
 
-void CommissionWageWorker::setSalary(const int s) { salary = s; }
+        std::cout << "Enter percentage: ";
+        std::cin >> percentage;
 
-void CommissionWageWorker::setPercentage(const int p) { percentage = p; }
+        try
+        {
+          CommissionWageWorker worker(fullName, gender, salary, percentage);
+          return worker;
+        }
+        catch(const std::exception& e)
+        {
+          std::cerr << e.what() << '\n';
+        }
+    }
+}
 
-void CommissionWageWorker::sell(int goodsSold) { goodsSoldSum += goodsSold; }
+std::string CommissionWageWorker::getFullName() const { return fullName; }
+
+Gender CommissionWageWorker::getGender() const { return gender; }
+
+int CommissionWageWorker::getSalary() const { return salary; }
+
+int CommissionWageWorker::getPercentage() const { return percentage; }
+
+void CommissionWageWorker::sell(const int goodsSold) { goodsSoldSum += goodsSold; }
 
 int CommissionWageWorker::calcWage() {
   int addition = (int)((float)goodsSoldSum * (float)(percentage) / 100.);

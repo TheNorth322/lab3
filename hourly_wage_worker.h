@@ -16,27 +16,26 @@ private:
   int overtimeHourlyWage;
 
 public:
-  static HourlyWageWorker& enterFromConsole();
 
   HourlyWageWorker();
 
   HourlyWageWorker(std::string _fullName, Gender _gender,
                    int _standardOfWorkingHours, int _normalHourlyWage,
                    int _overtimeHourlyWage);
-
-  void setFullName(const std::string);
   
-  std::string getFullName();
+  std::string getFullName() const;
 
-  void setGender(const Gender);
+  Gender getGender() const;
 
-  void setNormalHourlyWage(const int);
+  int getNormalHourlyWage() const;
 
-  void setOvertimeHourlyWage(const int);
+  int getOvertimeHourlyWage() const;
 
-  void setStandardOfWorkingHours(const int);
+  int getStandardOfWorkingHours() const;
 
   void work(int);
 
   int calcWage();
 };
+
+HourlyWageWorker enterHourlyWageWorker();

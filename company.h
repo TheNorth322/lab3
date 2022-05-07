@@ -3,41 +3,60 @@
 #include "commission_wage_worker.h"
 #include "hourly_wage_worker.h"
 #include "main.h"
+#include "vector.h"
 #include <stdexcept>
 #include <string>
 #include <cstring>
 
+enum class Recruation {
+    Commission = 0,
+    Hourly,
+    Both,
+    None
+};
+
+inline std::istream& operator>>(std::istream& stream, Recruation& recruation) 
+{
+	stream >> recruation;
+	return stream;
+}
+
 class Company {
 private:
-  CommissionWageWorker *commissionWageWorkers;
-  std::size_t commissionWageWorkersCount;
+  Vector<CommissionWageWorker> commissionWageWorkers;
 
-  HourlyWageWorker *hourlyWageWorkers;
-  std::size_t hourlyWageWorkersCount;
+  Vector<HourlyWageWorker> hourlyWageWorkers;
 
   std::size_t workedDaysCount;
   
+  const int maxPrice = 3000;
+  const int minPrice = 1000;
+  const int workingCycle = 15;
+  const int workingDay = 8;
   int expenses;
 
-  void dismissHourlyWageWorker(std::size_t pos);
-  void dismissCommissionWageWorker(std::size_t pos);
+  void dismissHourlyWageWorker(std::string);
+  void dismissCommissionWageWorker(std::string);
 
   bool isAlreadyRecruited(std::string fullName);
 
 public:
   Company();
 
-  void recruitHourlyWageWorker(HourlyWageWorker& newWorker);
+  ~Company();
 
-  void recruitCommissionWageWorker(CommissionWageWorker& newWorker);
+  Recruation Company::checkRecruation(std::string);
 
-  void dismissWorkerByFullname(std::string fullName);
+  void recruitHourlyWageWorker(HourlyWageWorker&);
 
+  void recruitCommissionWageWorker(CommissionWageWorker&);
+
+  void dismissWorkerByFullname(std::string, Recruation);
+  
   void simulateWork(int);
-
-  std::size_t getHourlyWageWorkersCount();
-
-  std::size_t getCommissionWageWorkersCount();
-
-  void giveSalary();
 };
+
+inline Company::~Company() {
+  delete &commissionWageWorkers;
+  delete &hourlyWageWorkers;
+}

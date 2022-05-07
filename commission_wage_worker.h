@@ -18,17 +18,17 @@ public:
   CommissionWageWorker(std::string _fullName, Gender _gender, int _salary,
                        int _percentage);
 
-  void setFullName(const std::string);
+  std::string getFullName() const;
 
-  std::string getFullName();
-
-  void setGender(const Gender);
+  Gender getGender() const;
  
-  void setSalary(const int);
+  int getSalary() const;
 
-  void setPercentage(const int);
+  int getPercentage() const;
 
   void sell(const int);
 
   int calcWage();
 };
+
+CommissionWageWorker enterCommissionWageWorker();

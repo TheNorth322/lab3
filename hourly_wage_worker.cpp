@@ -1,4 +1,5 @@
 #include "hourly_wage_worker.h"
+#include <iostream>
 
 HourlyWageWorker::HourlyWageWorker(std::string _fullName, Gender _gender,
                                    int _standardOfWorkingHours,
@@ -31,17 +32,48 @@ HourlyWageWorker::HourlyWageWorker(std::string _fullName, Gender _gender,
   }
 }
 
-void HourlyWageWorker::setFullName(const std::string fn) { fullName = fn; }
+HourlyWageWorker enterHourlyWageWorker() {
+    while (1) 
+    {
+        Gender gender;
+        std::string fullName;
+        int hourlyWage, overtimeHourlyWage, standardOfWorkingHours;
 
-std::string HourlyWageWorker::getFullName() { return fullName; }
+        std::cout << "Enter fullname: ";
+        std::cin >> fullName;
 
-void HourlyWageWorker::setGender(const Gender g) { gender = g; }
+        std::cout << "Enter gender(1 - Male, 2 - Female): ";
+        std::cin >> gender;
 
-void HourlyWageWorker::setNormalHourlyWage(const int hw) { normalHourlyWage = hw; }
+        std::cout << "Enter hourly wage: ";
+        std::cin >> hourlyWage;
 
-void HourlyWageWorker::setOvertimeHourlyWage(const int ohw) { overtimeHourlyWage = ohw; }
+        std::cout << "Enter overtime wage: ";
+        std::cin >> overtimeHourlyWage;
 
-void HourlyWageWorker::setStandardOfWorkingHours(const int swh) { standardOfWorkingHours = swh; }
+        std::cout << "Enter standard of working hours: ";
+        std::cin >> standardOfWorkingHours;
+        try
+        {
+          HourlyWageWorker worker(fullName, gender, standardOfWorkingHours, hourlyWage, overtimeHourlyWage);
+          return worker;
+        }
+        catch(const std::exception& e)
+        {
+          std::cerr << e.what() << '\n';
+        }
+    }
+}
+
+std::string HourlyWageWorker::getFullName() const { return fullName; }
+
+Gender HourlyWageWorker::getGender() const { return gender; }
+
+int HourlyWageWorker::getNormalHourlyWage() const { return normalHourlyWage; }
+
+int HourlyWageWorker::getOvertimeHourlyWage() const { return overtimeHourlyWage; }
+
+int HourlyWageWorker::getStandardOfWorkingHours() const { return standardOfWorkingHours; }
 
 void HourlyWageWorker::work(int hours) { hoursWorked += hours; }
 
