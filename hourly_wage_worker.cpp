@@ -32,39 +32,6 @@ HourlyWageWorker::HourlyWageWorker(std::string _fullName, Gender _gender,
   }
 }
 
-HourlyWageWorker enterHourlyWageWorker() {
-    while (1) 
-    {
-        Gender gender;
-        std::string fullName;
-        int hourlyWage, overtimeHourlyWage, standardOfWorkingHours;
-
-        std::cout << "Enter fullname: ";
-        std::cin >> fullName;
-
-        std::cout << "Enter gender(1 - Male, 2 - Female): ";
-        std::cin >> gender;
-
-        std::cout << "Enter hourly wage: ";
-        std::cin >> hourlyWage;
-
-        std::cout << "Enter overtime wage: ";
-        std::cin >> overtimeHourlyWage;
-
-        std::cout << "Enter standard of working hours: ";
-        std::cin >> standardOfWorkingHours;
-        try
-        {
-          HourlyWageWorker worker(fullName, gender, standardOfWorkingHours, hourlyWage, overtimeHourlyWage);
-          return worker;
-        }
-        catch(const std::exception& e)
-        {
-          std::cerr << e.what() << '\n';
-        }
-    }
-}
-
 std::string HourlyWageWorker::getFullName() const { return fullName; }
 
 Gender HourlyWageWorker::getGender() const { return gender; }
@@ -87,4 +54,38 @@ int HourlyWageWorker::calcWage() {
 
   return normalHoursWorked * normalHourlyWage +
          overtimeHoursWorked * overtimeHourlyWage;
+}
+
+HourlyWageWorker& enterHourlyWageWorker() {
+    while (1) 
+    {
+        Gender gender;
+        std::string fullName;
+        int hourlyWage, overtimeHourlyWage, standardOfWorkingHours;
+
+        std::cout << "Enter fullname: ";
+        std::cin >> fullName;
+
+        std::cout << "Enter gender(1 - Male, 2 - Female): ";
+        std::cin >> gender;
+
+        std::cout << "Enter hourly wage: ";
+        std::cin >> hourlyWage;
+
+        std::cout << "Enter overtime wage: ";
+        std::cin >> overtimeHourlyWage;
+
+        std::cout << "Enter standard of working hours: ";
+        std::cin >> standardOfWorkingHours;
+
+        try
+        {
+          HourlyWageWorker *worker = new HourlyWageWorker(fullName, gender, standardOfWorkingHours, hourlyWage, overtimeHourlyWage);
+          return *worker;
+        }
+        catch(const std::exception& e)
+        {
+          std::cerr << e.what() << '\n';
+        }
+    }
 }

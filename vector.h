@@ -55,3 +55,7 @@ inline std::size_t Vector<T>::getSize() const
 {
     return m_size;
 }
+
+template <typename T>
+inline std::ostream operator<<(std::ostream &, const Vector<T>&);
+

@@ -38,4 +38,4 @@ public:
   int calcWage();
 };
 
-HourlyWageWorker enterHourlyWageWorker();
+HourlyWageWorker& enterHourlyWageWorker();

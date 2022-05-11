@@ -89,7 +89,6 @@ template <typename T>
 void Vector<T>::del(std::size_t pos) {
     Vector<T> *newData =
         new T[m_size - 1];
-    int pos = NULL;
 
     if (pos >= m_size)
         throw std::out_of_range("pos >= " + std::to_string(m_size));
@@ -105,4 +104,15 @@ void Vector<T>::del(std::size_t pos) {
 
     m_data = newData;
     m_size -= 1;
+}
+
+template <typename T>
+std::ostream operator<<(std::ostream &stream, const Vector<T>& vec) {
+    stream << "[\n";
+
+    for (std::size_t i = 0; i < vec.getSize(); i++) {
+        stream << vec[i] << ",\n";
+    }
+
+    stream << "]\n";
 }
