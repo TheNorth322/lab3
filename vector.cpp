@@ -1,7 +1,4 @@
 #include "vector.h"
-#include <string>
-#include <cstring>
-#include <exception>
 
 template <typename T>
 Vector<T>& Vector<T>::operator=(const Vector<T>& other)
@@ -107,12 +104,11 @@ void Vector<T>::del(std::size_t pos) {
 }
 
 template <typename T>
-std::ostream operator<<(std::ostream &stream, const Vector<T>& vec) {
+inline std::ostream operator<<(std::ostream &stream, const Vector<T>& vec) {
     stream << "[\n";
 
-    for (std::size_t i = 0; i < vec.getSize(); i++) {
+    for (std::size_t i = 0; i < vec.getSize(); i++)
         stream << vec[i] << ",\n";
-    }
 
     stream << "]\n";
 }

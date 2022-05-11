@@ -1,8 +1,6 @@
 #pragma once
-
 #include "commission_wage_worker.h"
 #include "hourly_wage_worker.h"
-#include "main.h"
 #include "vector.h"
 #include <cstring>
 #include <stdexcept>
@@ -45,9 +43,9 @@ public:
 
   Recruation getRecruationStatus(std::string) const;
 
-  Vector<HourlyWageWorker> getHourlyWageWorkers() const;
+  const Vector<HourlyWageWorker>& getHourlyWageWorkers() const;
 
-  Vector<CommissionWageWorker> getCommissionWageWorkers() const;
+  const Vector<CommissionWageWorker>& getCommissionWageWorkers() const;
 
   void dismissWorkerByFullname(std::string, Recruation);
 

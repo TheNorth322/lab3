@@ -1,8 +1,8 @@
 #pragma once
-
-#include "main.h"
 #include <stdexcept>
 #include <string>
+#include <iostream>
+#include "common.h"
 
 class HourlyWageWorker {
 private:
@@ -19,9 +19,9 @@ public:
 
   HourlyWageWorker();
 
-  HourlyWageWorker(std::string _fullName, Gender _gender,
-                   int _standardOfWorkingHours, int _normalHourlyWage,
-                   int _overtimeHourlyWage);
+  HourlyWageWorker(std::string, Gender,
+                   int, int,
+                   int);
   
   std::string getFullName() const;
 

@@ -1,12 +1,12 @@
 #include "main.h"
 
 int main() {
-  Company company;
-  menu(company);
+  Company* company = new Company();
+  menu(*company);
   return 0;
 }
 
-void fireWorker(Company company, std::string fullName) {
+void fireWorker(Company& company, std::string fullName) {
   Recruation status = company.getRecruationStatus(fullName);
 
   if (status == Recruation::None) {
@@ -23,14 +23,16 @@ void fireWorker(Company company, std::string fullName) {
   company.dismissWorkerByFullname(fullName, status);
 }
 
-void menu(Company company) {
+void menu(Company& company) {
   while (1) {
     std::cout << "\tMenu options\n"
               << "1-Add hourly wage worker\n"
               << "2-Add commission wage worker\n"
               << "3-Fire worker by full name\n"
               << "4-Simulate work\n"
-              << "5-EXIT\n";
+              << "5-Print hourly wage workers\n"
+              << "6-Print commission wage workers\n"
+              << "7-EXIT\n";
 
     std::cout << "Enter option: ";
 
@@ -65,8 +67,17 @@ void menu(Company company) {
       company.simulateWork(days);
       break;
     }
-    case 5:
+    case 5: {
+      const Vector<HourlyWageWorker>& workers = company.getHourlyWageWorkers();
+      std::cout << workers; 
+    }
+    case 6: {
+      const Vector<CommissionWageWorker>& workers = company.getCommissionWageWorkers();
+      std::cout << workers;
+    }
+    case 7: {
       return;
+    }
     default: {
       printf("Wrong! Undefined munu option");
       printf("\n");

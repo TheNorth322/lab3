@@ -57,11 +57,11 @@ Recruation Company::getRecruationStatus(std::string fullName) const {
   return status;
 }
 
-Vector<HourlyWageWorker> Company::getHourlyWageWorkers() const {
+const Vector<HourlyWageWorker>& Company::getHourlyWageWorkers() const {
   return hourlyWageWorkers;
 }
 
-Vector<CommissionWageWorker> Company::getCommissionWageWorkers() const {
+const Vector<CommissionWageWorker>& Company::getCommissionWageWorkers() const {
   return commissionWageWorkers;
 }
 

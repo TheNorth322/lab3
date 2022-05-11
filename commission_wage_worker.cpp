@@ -1,5 +1,5 @@
 #include "commission_wage_worker.h"
-#include <iostream>
+
 
 CommissionWageWorker::CommissionWageWorker(std::string _fullName,
                                            Gender _gender, int _salary,

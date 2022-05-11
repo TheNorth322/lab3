@@ -1,5 +1,5 @@
 #include "hourly_wage_worker.h"
-#include <iostream>
+
 
 HourlyWageWorker::HourlyWageWorker(std::string _fullName, Gender _gender,
                                    int _standardOfWorkingHours,

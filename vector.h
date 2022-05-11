@@ -2,6 +2,7 @@
 #include <string>
 #include <cstring>
 #include <iostream>
+
 template <typename T>
 class Vector
 {
@@ -31,9 +32,9 @@ inline Vector<T>::Vector()
 
 template <typename T>
 inline Vector<T>::Vector(const Vector<T> &other)
-    : m_size(other.m_size), m_data(new int[other.m_size])
+    : m_size(other.m_size), m_data(new T[other.m_size])
 {
-    std::memcpy(m_data, other.m_data, sizeof(int) * other.m_size);
+    std::memcpy(m_data, other.m_data, sizeof(T) * other.m_size);
 }
 
 template <typename T>
@@ -58,4 +59,3 @@ inline std::size_t Vector<T>::getSize() const
 
 template <typename T>
 inline std::ostream operator<<(std::ostream &, const Vector<T>&);
-
