@@ -1,12 +1,9 @@
-#include <iostream>
-#include "vec.h"
+#pragma once
+
 #include "company.h"
+#include "vec.h"
+#include <iostream>
 
-#ifndef LAB3_MAIN_H
-#define LAB3_MAIN_H
+void fireWorker(Company &, std::string);
 
-void fireWorker(Company&, std::string);
-
-void menu(Company&);
-
-#endif //LAB3_MAIN_H
+void menu(Company &);

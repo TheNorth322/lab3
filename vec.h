@@ -1,44 +1,40 @@
-#include <string>
-#include <cstring>
-#include <iostream>
+#pragma once
+
 #include "commission_wage_worker.h"
 #include "hourly_wage_worker.h"
+#include <cstring>
+#include <iostream>
+#include <string>
 
-#ifndef LAB3_VECTOR_H
-#define LAB3_VECTOR_H
-
-template<typename T>
-class Vector {
+template <typename T> class Vector {
 public:
-    // Vector(std::size_t size, T defaultValue);
-    Vector();
+  // Vector(std::size_t size, T defaultValue);
+  Vector();
 
-    Vector(const Vector<T> &);
+  Vector(const Vector<T> &);
 
-    Vector(Vector<T> &&);
+  Vector(Vector<T> &&);
 
-    Vector &operator=(const Vector<T> &);
+  Vector &operator=(const Vector<T> &);
 
-    Vector &operator=(Vector<T> &&);
+  Vector &operator=(Vector<T> &&);
 
-    ~Vector();
+  ~Vector();
 
-    T &operator[](std::size_t);
+  T &operator[](std::size_t);
 
-    const T &operator[](std::size_t) const;
+  const T &operator[](std::size_t) const;
 
-    std::size_t getSize() const;
+  std::size_t getSize() const;
 
-    void push(T);
+  void push(T);
 
-    void del(std::size_t);
+  void del(std::size_t);
 
 private:
-    std::size_t m_size;
-    T *m_data;
+  std::size_t size;
+  T *data;
 };
 
-template<typename T>
+template <typename T>
 inline std::ostream &operator<<(std::ostream &, const Vector<T> &);
-
-#endif //LAB3_VECTOR_H

@@ -1,40 +1,35 @@
+#pragma once
+
 #include <iostream>
 
-#ifndef LAB3_COMMON_H
-#define LAB3_COMMON_H
-
 enum class Gender {
-    Male = 1,
-    Female,
+  Male = 1,
+  Female,
 };
 
-inline std::istream& operator>>(std::istream& stream, Gender& gender)
-{
-    int buffer;
-    stream >> buffer;
+inline std::istream &operator>>(std::istream &stream, Gender &gender) {
+  int buffer;
+  stream >> buffer;
 
-    if (buffer == 1) {
-        gender = Gender::Male;
-    }
+  if (buffer == 1) {
+    gender = Gender::Male;
+  }
 
-    else if (buffer == 2) {
-        gender = Gender::Female;
-    }
+  else if (buffer == 2) {
+    gender = Gender::Female;
+  }
 
-    return stream;
+  return stream;
 }
 
-inline std::ostream& operator<<(std::ostream& stream, Gender gender)
-{
-    if (gender == Gender::Male) {
-        stream << "Male";
-    }
+inline std::ostream &operator<<(std::ostream &stream, Gender gender) {
+  if (gender == Gender::Male) {
+    stream << "Male";
+  }
 
-    if (gender == Gender::Female) {
-        stream << "Female";
-    }
+  if (gender == Gender::Female) {
+    stream << "Female";
+  }
 
-    return stream;
+  return stream;
 }
-
-#endif //LAB3_COMMON_H
