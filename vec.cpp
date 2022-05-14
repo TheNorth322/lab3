@@ -1,5 +1,31 @@
 #include "vec.h"
 
+template<typename T>
+inline Vector<T>::Vector()
+        : m_size(0), m_data(new T[m_size]) {}
+
+template<typename T>
+inline Vector<T>::Vector(const Vector<T> &other)
+        : m_size(other.m_size), m_data(new T[other.m_size]) {
+    std::memcpy(m_data, other.m_data, sizeof(T) * other.m_size);
+}
+
+template<typename T>
+inline Vector<T>::~Vector() {
+    if (m_data != nullptr) delete[] m_data;
+}
+
+template<typename T>
+inline Vector<T>::Vector(Vector<T> &&other)
+         : m_size(other.m_size), m_data(other.m_data) {
+    other.m_size = 0u;
+    other.m_data = nullptr;
+}
+
+template<typename T>
+inline std::size_t Vector<T>::getSize() const {
+    return m_size;
+}
 template <typename T>
 Vector<T>& Vector<T>::operator=(const Vector<T>& other)
 {
@@ -73,13 +99,13 @@ void Vector<T>::push(T item) {
     T *newData =
             new T[m_size + 1];
 
-    std::memcpy(newData, m_data, m_size);
+    std::memcpy(newData, m_data, sizeof(T) * m_size);
     newData[m_size] = item;
 
     delete[] m_data;
     m_data = newData;
 
-    m_size += 1;
+    m_size++;
 }
 
 template <typename T>
@@ -93,9 +119,9 @@ void Vector<T>::del(std::size_t pos) {
     if (nullptr == m_data)
         throw std::runtime_error("The array is uninitialized due to a move operation");
 
-    std::memcpy(newData, m_data, pos);
+    std::memcpy(newData, m_data, sizeof(T) * pos);
     std::memcpy(newData + pos, m_data + pos + 1,
-                m_size - pos - 1);
+                sizeof(T) * (m_size - pos - 1));
 
     delete[] m_data;
 

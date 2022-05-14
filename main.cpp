@@ -69,13 +69,11 @@ void menu(Company& company) {
                 break;
             }
             case 5: {
-                const Vector<HourlyWageWorker>& workers = company.getHourlyWageWorkers();
-                std::cout << workers;
+                std::cout << company.getHourlyWageWorkers();
                 break;
             }
             case 6: {
-                const Vector<CommissionWageWorker>& workers = company.getCommissionWageWorkers();
-                std::cout << workers;
+                std::cout << company.getCommissionWageWorkers();
                 break;
             }
             case 7: {
