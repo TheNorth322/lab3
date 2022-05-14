@@ -24,6 +24,7 @@ CommissionWageWorker::CommissionWageWorker(std::string _fullName,
   }
 }
 
+// Ввод данных о работнике с консоли
 CommissionWageWorker enterCommissionWageWorker() {
   while (true) {
     Gender gender;

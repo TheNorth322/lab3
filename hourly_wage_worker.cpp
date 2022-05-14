@@ -59,6 +59,7 @@ int HourlyWageWorker::calcWage() {
          overtimeHoursWorked * overtimeHourlyWage;
 }
 
+// Ввод данных о сотруднике с почасовой оплатой
 HourlyWageWorker &enterHourlyWageWorker() {
   while (1) {
     Gender gender;

@@ -3,19 +3,22 @@
 
 int main() {
   Company *company = new Company();
-  menu(*company);
+  navigate_by_menu(*company);
   return 0;
 }
 
-void fireWorker(Company &company, std::string fullName) {
+// Увольнение сотрудника
+void fireWorker(Company &company, std::string fullName) { 
   Recruation status = company.getRecruationStatus(fullName);
-
-  if (status == Recruation::None) {
+  
+  // Сотрудник не найдет
+  if (status == Recruation::None) { 
     std::cout << "Worker wasn't found!" << std::endl;
     return;
   }
-
-  if (status == Recruation::Both) {
+  
+  // Сотрудник найден в обоих группах
+  if (status == Recruation::Both) { 
     std::cout << "Worker has been found in both groups." << std::endl
               << "Fire from? (1 - Hourly, 2 - Commission, 3 - Both): ";
 
@@ -24,7 +27,8 @@ void fireWorker(Company &company, std::string fullName) {
   company.dismissWorkerByFullname(fullName, status);
 }
 
-void menu(Company &company) {
+// Навигация по меню
+void navigate_by_menu(Company &company) {
   while (1) {
     std::cout << "\tMenu options\n"
               << "1-Add hourly wage worker\n"
