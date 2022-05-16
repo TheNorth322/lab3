@@ -1,5 +1,4 @@
 #include "company.h"
-#include "vec.cpp"
 
 Company::Company()
     : commissionWageWorkers(Vector<CommissionWageWorker>()),

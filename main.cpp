@@ -1,9 +1,14 @@
-#include "main.h"
-#include "vec.cpp"
+#include "company.h"
+#include "vec.h"
+#include <iostream>
+
+void fireWorker(Company &, std::string);
+
+void navigateByMenu(Company &);
 
 int main() {
   Company *company = new Company();
-  navigate_by_menu(*company);
+  navigateByMenu(*company);
   return 0;
 }
 
@@ -28,7 +33,7 @@ void fireWorker(Company &company, std::string fullName) {
 }
 
 // Навигация по меню
-void navigate_by_menu(Company &company) {
+void navigateByMenu(Company &company) {
   while (1) {
     std::cout << "\tMenu options\n"
               << "1-Add hourly wage worker\n"
@@ -90,9 +95,7 @@ void navigate_by_menu(Company &company) {
       continue;
     }
 
-    if (option.compare("7") == 0) {
-      return;
-    }
+    if (option.compare("7") == 0) return;
 
     std::cout << "Wrong! Undefined munu option";
     std::cout << "\n";
