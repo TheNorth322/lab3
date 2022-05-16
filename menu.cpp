@@ -1,8 +1,8 @@
 #include "menu.h"
 
-Menu::Menu() : company(Company()), option(0) {}
+Menu::Menu() : company(Company()) {}
 
-bool Menu::handleError() {
+bool Menu::handleError() const {
   if (!std::cin.fail())
     return false;
 
@@ -12,7 +12,7 @@ bool Menu::handleError() {
   return true;
 }
 
-bool Menu::handleError(const std::string msg) {
+bool Menu::handleError(const std::string msg) const {
   if (!std::cin.fail())
     return false;
 
@@ -94,11 +94,11 @@ void Menu::handleSimulateWork() {
   std::cout << "Expenses: " << company.simulateWork(days) << "\n";
 }
 
-void Menu::handlePrintHourlyWageWorkers() {
+void Menu::handlePrintHourlyWageWorkers() const {
   std::cout << "Hourly wage workers: " << company.getHourlyWageWorkers();
 }
 
-void Menu::handlePrintCommissionWageWorkers() {
+void Menu::handlePrintCommissionWageWorkers() const {
   std::cout << "Commission wage workers: "
             << company.getCommissionWageWorkers();
 }

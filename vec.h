@@ -3,8 +3,8 @@
 #include <cstring>
 #include <iostream>
 
-// При использовании std::memcpy для копирования экземпляров класса возникают
-// проблемы. Поэтому используется данная функция для копирования.
+// Могут возникать проблемы при копировании массива классов с помощью
+// std::memcpy. Поэтому для копирования используется данная функция.
 template <typename T> void copy(T *dest, T *src, std::size_t count) {
   if (src == nullptr || dest == nullptr)
     return;

@@ -89,18 +89,18 @@ std::size_t Company::simulateWork(int days) {
 
   for (; workedDaysCount < days; workedDaysCount++) {
     for (int i = 0; i < hourlyWageWorkers.getSize(); i++) {
-      if (workedDaysCount % workingCycle == 0)
+      if (workedDaysCount % WORKING_CYCLE == 0)
         expenses += hourlyWageWorkers[i].calcWage();
 
-      hourlyWageWorkers[i].work(std::rand() % workingDay);
+      hourlyWageWorkers[i].work(std::rand() % WORKING_DAY);
     }
 
     for (int i = 0; i < commissionWageWorkers.getSize(); i++) {
-      if (workedDaysCount % workingCycle == 0)
+      if (workedDaysCount % WORKING_CYCLE == 0)
         expenses += commissionWageWorkers[i].calcWage();
 
-      commissionWageWorkers[i].sell(std::rand() % (maxPrice - minPrice) +
-                                    minPrice);
+      commissionWageWorkers[i].sell(std::rand() % (MAX_PRICE - MIN_PRICE) +
+                                    MIN_PRICE);
     }
   }
 

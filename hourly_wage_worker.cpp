@@ -79,7 +79,7 @@ std::istream &operator>>(std::istream &stream, HourlyWageWorker &worker) {
   stream >> normalHourlyWage;
 
   if (stream.fail()) {
-    std::cerr << "Error! Invalid value. Expected integer";
+    std::cerr << "Error! Invalid value. Expected integer\n";
     return stream;
   }
 
@@ -87,7 +87,7 @@ std::istream &operator>>(std::istream &stream, HourlyWageWorker &worker) {
   stream >> overtimeHourlyWage;
 
   if (stream.fail()) {
-    std::cerr << "Error! Invalid value. Expected integer";
+    std::cerr << "Error! Invalid value. Expected integer\n";
     return stream;
   }
 
@@ -95,7 +95,7 @@ std::istream &operator>>(std::istream &stream, HourlyWageWorker &worker) {
   stream >> standardOfWorkingHours;
 
   if (stream.fail()) {
-    std::cerr << "Error! Invalid value. Expected integer";
+    std::cerr << "Error! Invalid value. Expected integer\n";
     return stream;
   }
 

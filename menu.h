@@ -13,7 +13,6 @@ public:
 
 private:
   Company company;
-  std::size_t option;
 
   const std::size_t ADD_HOURLY_WAGE_WORKER_OPTION = 1;
   const std::size_t ADD_COMMISSION_WAGE_WORKER_OPTION = 2;
@@ -23,8 +22,8 @@ private:
   const std::size_t PRINT_COMMISSION_WAGE_WORKERS_OPTION = 6;
   const std::size_t EXIT_OPTION = 7;
 
-  bool handleError();
-  bool handleError(std::string);
+  bool handleError() const;
+  bool handleError(std::string) const;
 
   void handleAddHourlyWageWorker();
 
@@ -34,7 +33,7 @@ private:
 
   void handleSimulateWork();
 
-  void handlePrintHourlyWageWorkers();
+  void handlePrintHourlyWageWorkers() const;
 
-  void handlePrintCommissionWageWorkers();
+  void handlePrintCommissionWageWorkers() const;
 };

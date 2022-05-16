@@ -11,10 +11,10 @@ private:
   Vector<CommissionWageWorker> commissionWageWorkers;
   Vector<HourlyWageWorker> hourlyWageWorkers;
 
-  const std::size_t maxPrice = 3000;
-  const std::size_t minPrice = 1000;
-  const std::size_t workingCycle = 15;
-  const std::size_t workingDay = 8;
+  const std::size_t MAX_PRICE = 3000;
+  const std::size_t MIN_PRICE = 1000;
+  const std::size_t WORKING_CYCLE = 15;
+  const std::size_t WORKING_DAY = 8;
 
   std::size_t workedDaysCount;
 
