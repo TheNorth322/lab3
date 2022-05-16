@@ -9,46 +9,18 @@ CommissionWageWorker::CommissionWageWorker(std::string _fullName,
 
   if (fullName.length() == 0) {
     throw std::invalid_argument(
-        "Invalid 'fullName' argument. The length must be non-zero.");
+        "Invalid 'fullName' argument. The length must be non-zero");
   }
 
   if (salary <= 0) {
     throw std::invalid_argument("Invalid 'salary' argument. "
-                                "Value must be greater than zero.");
+                                "Value must be greater than zero");
   }
 
   if (percentage <= 0) {
     throw std::invalid_argument(
         "Invalid 'percentage' argument. "
-        "Value must be greater than zero and less than 100.");
-  }
-}
-
-// Ввод данных о работнике с консоли
-CommissionWageWorker enterCommissionWageWorker() {
-  while (true) {
-    Gender gender;
-    std::string fullName;
-    int salary, percentage, goodsSoldSum;
-
-    std::cout << "Enter fullname: ";
-    std::cin >> fullName;
-
-    std::cout << "Enter gender(1 - Male, 2 - Female): ";
-    std::cin >> gender;
-
-    std::cout << "Enter salary: ";
-    std::cin >> salary;
-
-    std::cout << "Enter percentage: ";
-    std::cin >> percentage;
-
-    try {
-      CommissionWageWorker worker(fullName, gender, salary, percentage);
-      return worker;
-    } catch (const std::exception &e) {
-      std::cerr << e.what() << '\n';
-    }
+        "Value must be greater than zero and less than 100");
   }
 }
 
@@ -73,14 +45,55 @@ int CommissionWageWorker::calcWage() {
   return wage;
 }
 
+std::istream &operator>>(std::istream &stream, CommissionWageWorker &worker) {
+  Gender gender;
+  std::string fullName;
+  int salary, percentage, goodsSoldSum;
+
+  std::cout << "Enter fullname: ";
+  stream >> fullName;
+
+  std::cout << "Enter gender(1 - Male, 2 - Female): ";
+  stream >> gender;
+
+  if (stream.fail()) {
+    std::cerr << "Error! Invalid value. Expected '1' or '2'\n";
+    return stream;
+  }
+
+  std::cout << "Enter salary: ";
+  stream >> salary;
+
+  if (stream.fail()) {
+    std::cerr << "Error! Invalid value. Expected integer\n";
+    return stream;
+  }
+
+  std::cout << "Enter percentage: ";
+  stream >> percentage;
+
+  if (stream.fail()) {
+    std::cerr << "Error! Invalid value. Expected integer\n";
+    return stream;
+  }
+
+  try {
+    worker = CommissionWageWorker(fullName, gender, salary, percentage);
+  } catch (const std::exception &e) {
+    std::cerr << "Error! " << e.what() << "\n";
+    stream.setstate(std::iostream::failbit);
+  }
+
+  return stream;
+}
+
 std::ostream &operator<<(std::ostream &stream,
                          const CommissionWageWorker &worker) {
-  stream << "CommissionWageWorker {\n"
-         << "fullName: " << worker.getFullName() << "\n"
-         << "gender: " << worker.getGender() << "\n"
-         << "salary: " << worker.getSalary() << "\n"
-         << "percentage: " << worker.getPercentage() << "\n"
-         << "}\n";
+  stream << " {"
+         << "\n   fullName: " << worker.getFullName()
+         << "\n   gender: " << worker.getGender()
+         << "\n   salary: " << worker.getSalary()
+         << "\n   percentage: " << worker.getPercentage() << "\n }";
 
   return stream;
 }

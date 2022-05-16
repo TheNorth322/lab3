@@ -5,7 +5,7 @@ Company::Company()
       hourlyWageWorkers(Vector<HourlyWageWorker>()), workedDaysCount(0) {}
 
 //Найм сотрудника с почасовой оплатой
-void Company::recruitHourlyWageWorker(HourlyWageWorker &newWorker) {
+void Company::recruitHourlyWageWorker(HourlyWageWorker newWorker) {
   for (std::size_t i = 0; i < hourlyWageWorkers.getSize(); i++)
     if (hourlyWageWorkers[i].getFullName() == newWorker.getFullName())
       throw std::invalid_argument("Worker with name '" +
@@ -16,7 +16,7 @@ void Company::recruitHourlyWageWorker(HourlyWageWorker &newWorker) {
 }
 
 //Найм сотрудника с коммиссионной оплатой
-void Company::recruitCommissionWageWorker(CommissionWageWorker &newWorker) {
+void Company::recruitCommissionWageWorker(CommissionWageWorker newWorker) {
   for (std::size_t i = 0; i < commissionWageWorkers.getSize(); i++)
     if (commissionWageWorkers[i].getFullName() == newWorker.getFullName())
       throw std::invalid_argument("Worker with name '" +
@@ -91,11 +91,14 @@ std::size_t Company::simulateWork(int days) {
     for (int i = 0; i < hourlyWageWorkers.getSize(); i++) {
       if (workedDaysCount % workingCycle == 0)
         expenses += hourlyWageWorkers[i].calcWage();
+
       hourlyWageWorkers[i].work(std::rand() % workingDay);
     }
+
     for (int i = 0; i < commissionWageWorkers.getSize(); i++) {
       if (workedDaysCount % workingCycle == 0)
         expenses += commissionWageWorkers[i].calcWage();
+
       commissionWageWorkers[i].sell(std::rand() % (maxPrice - minPrice) +
                                     minPrice);
     }

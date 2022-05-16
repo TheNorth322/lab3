@@ -17,7 +17,9 @@ private:
   int overtimeHourlyWage;
 
 public:
-  HourlyWageWorker() {}
+  HourlyWageWorker()
+      : fullName(""), gender(Gender::Female), hoursWorked(0),
+        standardOfWorkingHours(0), normalHourlyWage(0), overtimeHourlyWage(0) {}
 
   HourlyWageWorker(std::string, Gender, int, int, int);
 
@@ -36,6 +38,5 @@ public:
   int calcWage();
 };
 
-HourlyWageWorker &enterHourlyWageWorker();
-
+std::istream &operator>>(std::istream &, HourlyWageWorker &);
 std::ostream &operator<<(std::ostream &, const HourlyWageWorker &);

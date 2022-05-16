@@ -14,7 +14,9 @@ private:
   int goodsSoldSum;
 
 public:
-  CommissionWageWorker() {}
+  CommissionWageWorker()
+      : fullName(""), gender(Gender::Male), salary(0), percentage(0),
+        goodsSoldSum(0) {}
 
   CommissionWageWorker(std::string, Gender, int, int);
 
@@ -31,6 +33,5 @@ public:
   int calcWage();
 };
 
-CommissionWageWorker enterCommissionWageWorker();
-
+std::istream &operator>>(std::istream &, CommissionWageWorker &);
 std::ostream &operator<<(std::ostream &, const CommissionWageWorker &);

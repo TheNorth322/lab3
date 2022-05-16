@@ -5,24 +5,6 @@
 #include "vec.h"
 #include <cstring>
 #include <stdexcept>
-#include <string>
-
-enum class Recruation { Commission = 1, Hourly, Both, None };
-
-inline std::istream &operator>>(std::istream &stream, Recruation &recruation) {
-  int buffer;
-  stream >> buffer;
-
-  if (buffer == 1) {
-    recruation = Recruation::Hourly;
-  } else if (buffer == 2) {
-    recruation = Recruation::Commission;
-  } else if (buffer == 3) {
-    recruation = Recruation::Both;
-  }
-
-  return stream;
-}
 
 class Company {
 private:
@@ -33,6 +15,7 @@ private:
   const std::size_t minPrice = 1000;
   const std::size_t workingCycle = 15;
   const std::size_t workingDay = 8;
+
   std::size_t workedDaysCount;
 
   void dismissHourlyWageWorker(std::string);
@@ -41,11 +24,14 @@ private:
 public:
   Company();
 
-  ~Company();
+  ~Company() {
+    delete &commissionWageWorkers;
+    delete &hourlyWageWorkers;
+  }
 
-  void recruitHourlyWageWorker(HourlyWageWorker &);
+  void recruitHourlyWageWorker(HourlyWageWorker);
 
-  void recruitCommissionWageWorker(CommissionWageWorker &);
+  void recruitCommissionWageWorker(CommissionWageWorker);
 
   Recruation getRecruationStatus(std::string) const;
 
@@ -57,8 +43,3 @@ public:
 
   std::size_t simulateWork(int);
 };
-
-inline Company::~Company() {
-  delete &commissionWageWorkers;
-  delete &hourlyWageWorkers;
-}

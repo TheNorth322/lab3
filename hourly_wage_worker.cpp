@@ -12,22 +12,22 @@ HourlyWageWorker::HourlyWageWorker(std::string _fullName, Gender _gender,
 
   if (fullName.length() == 0) {
     throw std::invalid_argument(
-        "Invalid 'fullName' argument. The length must be non-zero.");
+        "Invalid 'fullName' argument. The length must be non-zero");
   }
 
   if (standardOfWorkingHours <= 0) {
     throw std::invalid_argument("Invalid 'standardOfWorkingHours' argument. "
-                                "Value must be greater than zero.");
+                                "Value must be greater than zero");
   }
 
   if (normalHourlyWage <= 0) {
     throw std::invalid_argument("Invalid 'normalHourlyWage' argument. "
-                                "Value must be greater than zero.");
+                                "Value must be greater than zero");
   }
 
   if (overtimeHourlyWage <= 0) {
     throw std::invalid_argument("Invalid 'overtimeHourlyWage' argument. "
-                                "Value must be greater than zero.");
+                                "Value must be greater than zero");
   }
 }
 
@@ -59,48 +59,65 @@ int HourlyWageWorker::calcWage() {
          overtimeHoursWorked * overtimeHourlyWage;
 }
 
-// Ввод данных о сотруднике с почасовой оплатой
-HourlyWageWorker &enterHourlyWageWorker() {
-  while (1) {
-    Gender gender;
-    std::string fullName;
-    int hourlyWage, overtimeHourlyWage, standardOfWorkingHours;
+std::istream &operator>>(std::istream &stream, HourlyWageWorker &worker) {
+  Gender gender;
+  std::string fullName;
+  int normalHourlyWage, overtimeHourlyWage, standardOfWorkingHours;
 
-    std::cout << "Enter fullname: ";
-    std::cin >> fullName;
+  std::cout << "Enter fullname: ";
+  stream >> fullName;
 
-    std::cout << "Enter gender(1 - Male, 2 - Female): ";
-    std::cin >> gender;
+  std::cout << "Enter gender(1 - Male, 2 - Female): ";
+  stream >> gender;
 
-    std::cout << "Enter hourly wage: ";
-    std::cin >> hourlyWage;
-
-    std::cout << "Enter overtime wage: ";
-    std::cin >> overtimeHourlyWage;
-
-    std::cout << "Enter standard of working hours: ";
-    std::cin >> standardOfWorkingHours;
-
-    try {
-      HourlyWageWorker *worker =
-          new HourlyWageWorker(fullName, gender, standardOfWorkingHours,
-                               hourlyWage, overtimeHourlyWage);
-      return *worker;
-    } catch (const std::exception &e) {
-      std::cerr << e.what() << '\n';
-    }
+  if (stream.fail()) {
+    std::cerr << "Error! Invalid value. Expected '1' or '2'\n";
+    return stream;
   }
+
+  std::cout << "Enter normal hourly wage: ";
+  stream >> normalHourlyWage;
+
+  if (stream.fail()) {
+    std::cerr << "Error! Invalid value. Expected integer";
+    return stream;
+  }
+
+  std::cout << "Enter overtime wage: ";
+  stream >> overtimeHourlyWage;
+
+  if (stream.fail()) {
+    std::cerr << "Error! Invalid value. Expected integer";
+    return stream;
+  }
+
+  std::cout << "Enter standard of working hours: ";
+  stream >> standardOfWorkingHours;
+
+  if (stream.fail()) {
+    std::cerr << "Error! Invalid value. Expected integer";
+    return stream;
+  }
+
+  try {
+    worker = HourlyWageWorker(fullName, gender, standardOfWorkingHours,
+                              normalHourlyWage, overtimeHourlyWage);
+  } catch (const std::exception &e) {
+    std::cerr << "Error! " << e.what() << "\n";
+    stream.setstate(std::iostream::failbit);
+  }
+
+  return stream;
 }
 
 std::ostream &operator<<(std::ostream &stream, const HourlyWageWorker &worker) {
-  stream << "HourlyWageWorker {\n"
-         << "fullName: " << worker.getFullName() << "\n"
-         << "gender: " << worker.getGender() << "\n"
-         << "normalHourlyWage: " << worker.getNormalHourlyWage() << "\n"
-         << "overtimeHourlyWage: " << worker.getOvertimeHourlyWage() << "\n"
-         << "standardOfWorkingHours: " << worker.getStandardOfWorkingHours()
-         << "\n"
-         << "}\n";
+  stream << " {"
+         << "\n   fullName: " << worker.getFullName()
+         << "\n   gender: " << worker.getGender()
+         << "\n   normalHourlyWage: " << worker.getNormalHourlyWage()
+         << "\n   overtimeHourlyWage: " << worker.getOvertimeHourlyWage()
+         << "\n   standardOfWorkingHours: "
+         << worker.getStandardOfWorkingHours() << "\n }";
 
   return stream;
 }
