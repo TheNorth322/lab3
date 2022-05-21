@@ -1,5 +1,5 @@
-#include "menu.h"
 #include "cstdlib"
+#include "menu.h"
 
 int main() {
   Menu menu = Menu();

@@ -85,22 +85,28 @@ void Company::dismissWorkerByFullname(std::string fullName, Recruation status) {
 
 // Моделирование работы
 std::size_t Company::simulateWork(int days) {
+  std::srand(std::time(nullptr));
   std::size_t expenses = 0;
 
-  for (; workedDaysCount < days; workedDaysCount++) {
+  std::size_t lastWorkerDaysCount = workedDaysCount;
+  for (; workedDaysCount < lastWorkerDaysCount + days; workedDaysCount++) {
     for (int i = 0; i < hourlyWageWorkers.getSize(); i++) {
-      if (workedDaysCount % WORKING_CYCLE == 0)
-        expenses += hourlyWageWorkers[i].calcWage();
+      HourlyWageWorker &worker = hourlyWageWorkers[i];
 
-      hourlyWageWorkers[i].work(std::rand() % WORKING_DAY);
+      if (workedDaysCount % WORKING_CYCLE == 0)
+        expenses += worker.calcWage();
+
+      std::size_t min = worker.getStandardOfWorkingHours();
+      std::size_t max = min + (24 - min) / 2;
+
+      worker.work(std::rand() % max);
     }
 
     for (int i = 0; i < commissionWageWorkers.getSize(); i++) {
       if (workedDaysCount % WORKING_CYCLE == 0)
         expenses += commissionWageWorkers[i].calcWage();
 
-      commissionWageWorkers[i].sell(std::rand() % (MAX_PRICE - MIN_PRICE) +
-                                    MIN_PRICE);
+      commissionWageWorkers[i].sell(std::rand() % MAX_PRICE);
     }
   }
 

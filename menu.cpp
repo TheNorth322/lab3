@@ -104,6 +104,16 @@ void Menu::handlePrintCommissionWageWorkers() const {
 }
 
 void Menu::listen() {
+  /*
+  company.recruitHourlyWageWorker(HourlyWageWorker("Petr Petrov", Gender::Male, 500, 700, 10));
+  company.recruitHourlyWageWorker(HourlyWageWorker("Ivan Ivanov", Gender::Male, 700, 1000, 15));
+  company.recruitHourlyWageWorker(HourlyWageWorker("Ekaterina Pavlovna", Gender::Female, 650, 850, 11));
+  */
+
+  company.recruitCommissionWageWorker(CommissionWageWorker("Dmitry Dmitrievich", Gender::Female, 800, 5));
+  company.recruitCommissionWageWorker(CommissionWageWorker("Nataliya Adreevna", Gender::Female, 700, 8));
+  company.recruitCommissionWageWorker(CommissionWageWorker("Aleksandr Aleksandrovich", Gender::Male, 1000, 15));
+
   while (true) {
     std::cout << "\n\tMenu options\n"
               << ADD_HOURLY_WAGE_WORKER_OPTION << "-Add hourly wage worker\n"

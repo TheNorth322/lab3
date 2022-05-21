@@ -5,16 +5,15 @@
 #include "vec.h"
 #include <cstring>
 #include <stdexcept>
+#include <ctime>
 
 class Company {
 private:
   Vector<CommissionWageWorker> commissionWageWorkers;
   Vector<HourlyWageWorker> hourlyWageWorkers;
 
-  const std::size_t MAX_PRICE = 3000;
-  const std::size_t MIN_PRICE = 1000;
+  const std::size_t MAX_PRICE = 15000;
   const std::size_t WORKING_CYCLE = 15;
-  const std::size_t WORKING_DAY = 8;
 
   std::size_t workedDaysCount;
 

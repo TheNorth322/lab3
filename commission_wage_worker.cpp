@@ -51,7 +51,9 @@ std::istream &operator>>(std::istream &stream, CommissionWageWorker &worker) {
   int salary, percentage, goodsSoldSum;
 
   std::cout << "Enter fullname: ";
-  stream >> fullName;
+  
+  stream.get();
+  std::getline(stream, fullName);
 
   std::cout << "Enter gender(1 - Male, 2 - Female): ";
   stream >> gender;

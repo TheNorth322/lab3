@@ -1,9 +1,9 @@
 #include "hourly_wage_worker.h"
 
 HourlyWageWorker::HourlyWageWorker(std::string _fullName, Gender _gender,
-                                   int _standardOfWorkingHours,
                                    int _normalHourlyWage,
-                                   int _overtimeHourlyWage)
+                                   int _overtimeHourlyWage,
+                                   int _standardOfWorkingHours)
     : fullName(_fullName), gender(_gender),
       standardOfWorkingHours(_standardOfWorkingHours),
       normalHourlyWage(_normalHourlyWage),
@@ -65,7 +65,9 @@ std::istream &operator>>(std::istream &stream, HourlyWageWorker &worker) {
   int normalHourlyWage, overtimeHourlyWage, standardOfWorkingHours;
 
   std::cout << "Enter fullname: ";
-  stream >> fullName;
+
+  stream.get();
+  std::getline(stream, fullName);
 
   std::cout << "Enter gender(1 - Male, 2 - Female): ";
   stream >> gender;
