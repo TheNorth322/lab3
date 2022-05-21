@@ -33,6 +33,8 @@ public:
   void recruitCommissionWageWorker(CommissionWageWorker);
 
   Recruation getRecruationStatus(std::string) const;
+  
+  std::size_t getWorkedDaysCount() const;
 
   const Vector<HourlyWageWorker> &getHourlyWageWorkers() const;
 

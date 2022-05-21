@@ -38,7 +38,8 @@ void CommissionWageWorker::sell(const int goodsSold) {
 
 int CommissionWageWorker::calcWage() {
   int addition = (int)((float)goodsSoldSum * (float)(percentage) / 100.);
-  int wage = salary + addition;
+  int wage = 0;
+  if (addition != 0) wage = salary + addition;
 
   goodsSoldSum = 0;
 

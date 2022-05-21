@@ -90,8 +90,9 @@ void Menu::handleSimulateWork() {
 
   if (handleError("Error! Invalid value. Expected unsigned integer\n"))
     return;
-
+  
   std::cout << "Expenses: " << company.simulateWork(days) << "\n";
+  std::cout << "Worked days count: " << company.getWorkedDaysCount() << "\n";
 }
 
 void Menu::handlePrintHourlyWageWorkers() const {
@@ -104,12 +105,11 @@ void Menu::handlePrintCommissionWageWorkers() const {
 }
 
 void Menu::listen() {
-  /*
+  
   company.recruitHourlyWageWorker(HourlyWageWorker("Petr Petrov", Gender::Male, 500, 700, 10));
   company.recruitHourlyWageWorker(HourlyWageWorker("Ivan Ivanov", Gender::Male, 700, 1000, 15));
   company.recruitHourlyWageWorker(HourlyWageWorker("Ekaterina Pavlovna", Gender::Female, 650, 850, 11));
-  */
-
+  
   company.recruitCommissionWageWorker(CommissionWageWorker("Dmitry Dmitrievich", Gender::Female, 800, 5));
   company.recruitCommissionWageWorker(CommissionWageWorker("Nataliya Adreevna", Gender::Female, 700, 8));
   company.recruitCommissionWageWorker(CommissionWageWorker("Aleksandr Aleksandrovich", Gender::Male, 1000, 15));
