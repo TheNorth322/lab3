@@ -15,11 +15,13 @@ private:
 
   int normalHourlyWage;
   int overtimeHourlyWage;
+  
+  std::size_t workedDays;
 
 public:
   HourlyWageWorker()
       : fullName(""), gender(Gender::Female), hoursWorked(0),
-        standardOfWorkingHours(0), normalHourlyWage(0), overtimeHourlyWage(0) {}
+        standardOfWorkingHours(0), normalHourlyWage(0), overtimeHourlyWage(0), workedDays(0) {}
 
   HourlyWageWorker(std::string, Gender, int, int, int);
 

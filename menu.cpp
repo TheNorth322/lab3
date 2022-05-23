@@ -57,7 +57,8 @@ void Menu::handleFireWorkerByFullName() {
   std::string fullName;
 
   std::cout << "Enter the full name of worker to fire: ";
-  std::cin >> fullName;
+  std::cin.get();
+  std::getline(std::cin, fullName);
 
   Recruation status = company.getRecruationStatus(fullName);
 
@@ -72,10 +73,10 @@ void Menu::handleFireWorkerByFullName() {
     std::cout << "Worker has been found in both groups.\n"
               << "Fire from(1 - Hourly, 2 - Commission, 3 - Both): ";
 
+    std::cin >> status;
+
     if (handleError("Error! Invalid value. Expected '1' or '2' or '3'"))
       return;
-
-    std::cin >> status;
   }
 
   company.dismissWorkerByFullname(fullName, status);
@@ -106,11 +107,12 @@ void Menu::handlePrintCommissionWageWorkers() const {
 
 void Menu::listen() {
   
+  // Тестовые данные
   company.recruitHourlyWageWorker(HourlyWageWorker("Petr Petrov", Gender::Male, 500, 700, 10));
   company.recruitHourlyWageWorker(HourlyWageWorker("Ivan Ivanov", Gender::Male, 700, 1000, 15));
   company.recruitHourlyWageWorker(HourlyWageWorker("Ekaterina Pavlovna", Gender::Female, 650, 850, 11));
   
-  company.recruitCommissionWageWorker(CommissionWageWorker("Dmitry Dmitrievich", Gender::Female, 800, 5));
+  company.recruitCommissionWageWorker(CommissionWageWorker("Dmitry Dmitrievich", Gender::Male, 800, 5));
   company.recruitCommissionWageWorker(CommissionWageWorker("Nataliya Adreevna", Gender::Female, 700, 8));
   company.recruitCommissionWageWorker(CommissionWageWorker("Aleksandr Aleksandrovich", Gender::Male, 1000, 15));
 
