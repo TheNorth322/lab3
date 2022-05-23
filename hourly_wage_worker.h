@@ -16,7 +16,7 @@ private:
   int normalHourlyWage;
   int overtimeHourlyWage;
   
-  std::size_t workedDays;
+  int workedDays;
 
 public:
   HourlyWageWorker()

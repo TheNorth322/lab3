@@ -9,7 +9,8 @@ HourlyWageWorker::HourlyWageWorker(std::string _fullName, Gender _gender,
       normalHourlyWage(_normalHourlyWage),
       overtimeHourlyWage(_overtimeHourlyWage) {
   hoursWorked = 0;
-  
+  workedDays = 0;
+
   if (fullName.length() == 0) {
     throw std::invalid_argument(
         "Invalid 'fullName' argument. The length must be non-zero");

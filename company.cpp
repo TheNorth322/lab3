@@ -83,13 +83,12 @@ void Company::dismissWorkerByFullname(std::string fullName, Recruation status) {
     dismissCommissionWageWorker(fullName);
 }
 
-// Моделирование работы
+/* Моделирование работы
 std::size_t Company::simulateWork(int days) {
   std::srand(std::time(nullptr));
   std::size_t expenses = 0;
 
   for (std::size_t workedDays = 0; workedDays < days; workedDays++) {
-    workedDaysCount++;
     for (std::size_t i = 0; i < hourlyWageWorkers.getSize(); i++) {
       HourlyWageWorker &worker = hourlyWageWorkers[i];
       if (workedDaysCount % WORKING_CYCLE == 0)
@@ -106,6 +105,42 @@ std::size_t Company::simulateWork(int days) {
         expenses += commissionWageWorkers[i].calcWage();
 
       commissionWageWorkers[i].sell(std::rand() % MAX_PRICE);
+    }
+    workedDaysCount++;
+  }
+
+  workedDaysCount %= 15;
+
+  return expenses;
+}
+*/
+// Моделирование работы
+std::size_t Company::simulateWork(int days) {
+  std::srand(std::time(nullptr));
+  std::size_t expenses = 0;
+
+  for (std::size_t workedDays = 0; workedDays < days; workedDays++) {
+    for (std::size_t i = 0; i < hourlyWageWorkers.getSize(); i++) {
+      HourlyWageWorker &worker = hourlyWageWorkers[i];
+
+      std::size_t min = worker.getStandardOfWorkingHours();
+      std::size_t max = min + (24 - min) / 2;
+
+      worker.work(std::rand() % max);
+    }
+
+    for (std::size_t i = 0; i < commissionWageWorkers.getSize(); i++) {
+      if (workedDaysCount % WORKING_CYCLE == 0)
+
+        commissionWageWorkers[i].sell(std::rand() % MAX_PRICE);
+    }
+    workedDaysCount++;
+
+    if (workedDaysCount % WORKING_CYCLE == 0) {
+      for (std::size_t i = 0; i < hourlyWageWorkers.getSize(); i++)
+        expenses += hourlyWageWorkers[i].calcWage();
+      for (std::size_t i = 0; i < commissionWageWorkers.getSize(); i++)
+        expenses += commissionWageWorkers[i].calcWage();
     }
   }
 
