@@ -6,7 +6,7 @@ Company::Company()
 
 //Найм сотрудника с почасовой оплатой
 void Company::recruitHourlyWageWorker(HourlyWageWorker newWorker) {
-  for (std::size_t i = 0; i < hourlyWageWorkers.getSize(); i++)
+  for (std::size_t i = 0; i < hourlyWageWorkers.getOccupiedSize(); i++)
     if (hourlyWageWorkers[i].getFullName() == newWorker.getFullName())
       throw std::invalid_argument("Worker with name '" +
                                   newWorker.getFullName() +
@@ -17,7 +17,7 @@ void Company::recruitHourlyWageWorker(HourlyWageWorker newWorker) {
 
 //Найм сотрудника с коммиссионной оплатой
 void Company::recruitCommissionWageWorker(CommissionWageWorker newWorker) {
-  for (std::size_t i = 0; i < commissionWageWorkers.getSize(); i++)
+  for (std::size_t i = 0; i < commissionWageWorkers.getOccupiedSize(); i++)
     if (commissionWageWorkers[i].getFullName() == newWorker.getFullName())
       throw std::invalid_argument("Worker with name '" +
                                   newWorker.getFullName() +
@@ -28,14 +28,14 @@ void Company::recruitCommissionWageWorker(CommissionWageWorker newWorker) {
 
 //Увольнение сотрудника с почасовой оплатой
 void Company::dismissHourlyWageWorker(std::string fullName) {
-  for (int i = 0; i < hourlyWageWorkers.getSize(); i++)
+  for (int i = 0; i < hourlyWageWorkers.getOccupiedSize(); i++)
     if (hourlyWageWorkers[i].getFullName() == fullName)
       hourlyWageWorkers.del(i);
 }
 
 // Увольнение сотрудника с коммиссионной оплатой
 void Company::dismissCommissionWageWorker(std::string fullName) {
-  for (int i = 0; i < commissionWageWorkers.getSize(); i++)
+  for (int i = 0; i < commissionWageWorkers.getOccupiedSize(); i++)
     if (commissionWageWorkers[i].getFullName() == fullName)
       commissionWageWorkers.del(i);
 }
@@ -44,11 +44,11 @@ void Company::dismissCommissionWageWorker(std::string fullName) {
 Recruation Company::getRecruationStatus(std::string fullName) const {
   Recruation status = Recruation::None;
 
-  for (std::size_t i = 0; i < hourlyWageWorkers.getSize(); i++)
+  for (std::size_t i = 0; i < hourlyWageWorkers.getOccupiedSize(); i++)
     if (hourlyWageWorkers[i].getFullName() == fullName)
       status = Recruation::Hourly;
 
-  for (std::size_t i = 0; i < commissionWageWorkers.getSize(); i++) {
+  for (std::size_t i = 0; i < commissionWageWorkers.getOccupiedSize(); i++) {
     if (commissionWageWorkers[i].getFullName() != fullName)
       continue;
 
@@ -120,7 +120,7 @@ std::size_t Company::simulateWork(int days) {
   std::size_t expenses = 0;
 
   for (std::size_t workedDays = 0; workedDays < days; workedDays++) {
-    for (std::size_t i = 0; i < hourlyWageWorkers.getSize(); i++) {
+    for (std::size_t i = 0; i < hourlyWageWorkers.getOccupiedSize(); i++) {
       HourlyWageWorker &worker = hourlyWageWorkers[i];
 
       std::size_t min = worker.getStandardOfWorkingHours();
@@ -129,7 +129,7 @@ std::size_t Company::simulateWork(int days) {
       worker.work(std::rand() % max);
     }
 
-    for (std::size_t i = 0; i < commissionWageWorkers.getSize(); i++) {
+    for (std::size_t i = 0; i < commissionWageWorkers.getOccupiedSize(); i++) {
       if (workedDaysCount % WORKING_CYCLE == 0)
 
         commissionWageWorkers[i].sell(std::rand() % MAX_PRICE);
@@ -137,9 +137,9 @@ std::size_t Company::simulateWork(int days) {
     workedDaysCount++;
 
     if (workedDaysCount % WORKING_CYCLE == 0) {
-      for (std::size_t i = 0; i < hourlyWageWorkers.getSize(); i++)
+      for (std::size_t i = 0; i < hourlyWageWorkers.getOccupiedSize(); i++)
         expenses += hourlyWageWorkers[i].calcWage();
-      for (std::size_t i = 0; i < commissionWageWorkers.getSize(); i++)
+      for (std::size_t i = 0; i < commissionWageWorkers.getOccupiedSize(); i++)
         expenses += commissionWageWorkers[i].calcWage();
     }
   }
