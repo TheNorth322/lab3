@@ -3,6 +3,8 @@
 #include <cstring>
 #include <iostream>
 
+const std::size_t SIZE_MULTIPLIER = 2;
+
 // Могут возникать проблемы при копировании массива классов с помощью
 // std::memcpy. Поэтому для копирования используется данная функция.
 template <typename T> void copy(T *dest, T *src, std::size_t count) {
@@ -108,7 +110,6 @@ public:
 
   // Добавление элемента в конец вектора
   void push(T item) {
-
     if (occupiedSize != size) {
       data[occupiedSize] = item;
       occupiedSize++;
@@ -116,7 +117,7 @@ public:
       return;
     }
 
-    T *newData = new T[size * 2];
+    T *newData = new T[size * SIZE_MULTIPLIER];
 
     copy(newData, data, occupiedSize);
     newData[occupiedSize] = item;

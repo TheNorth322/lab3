@@ -23,11 +23,6 @@ private:
 public:
   Company();
 
-  ~Company() {
-    delete &commissionWageWorkers;
-    delete &hourlyWageWorkers;
-  }
-
   void recruitHourlyWageWorker(HourlyWageWorker);
 
   void recruitCommissionWageWorker(CommissionWageWorker);

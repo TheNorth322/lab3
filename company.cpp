@@ -130,10 +130,9 @@ std::size_t Company::simulateWork(int days) {
     }
 
     for (std::size_t i = 0; i < commissionWageWorkers.getOccupiedSize(); i++) {
-      if (workedDaysCount % WORKING_CYCLE == 0)
-
         commissionWageWorkers[i].sell(std::rand() % MAX_PRICE);
     }
+
     workedDaysCount++;
 
     if (workedDaysCount % WORKING_CYCLE == 0) {
