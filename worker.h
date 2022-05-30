@@ -3,8 +3,6 @@
 
 class Worker {
 public:
-  Worker() : fullName(""), gender(Gender::Female) {}
-
   Worker(std::string _fullName, Gender _gender)
       : fullName(_fullName), gender(_gender) {
     if (fullName.length() == 0) {
