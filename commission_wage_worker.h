@@ -1,37 +1,32 @@
 #pragma once
 
 #include "common.h"
+#include "worker.h"
 #include <iostream>
 #include <stdexcept>
 #include <string>
 
-class CommissionWageWorker {
-private:
-  std::string fullName;
-  Gender gender;
-  int salary;
-  int percentage;
-  int goodsSoldSum;
-
+class CommissionWageWorker : public Worker {
 public:
   CommissionWageWorker()
-      : fullName(""), gender(Gender::Male), salary(0), percentage(0),
-        goodsSoldSum(0) {}
+      : Worker(), salary(0), percentage(0), goodsSoldSum(0) {}
 
   CommissionWageWorker(std::string, Gender, int, int);
-
-  std::string getFullName() const;
-
-  Gender getGender() const;
 
   int getSalary() const;
 
   int getPercentage() const;
 
-  void sell(int);
+  void work(int);
 
-  int calcWage();
+  int calculateWage();
+
+private:
+  int salary;
+  int percentage;
+  int goodsSoldSum;
 };
 
-std::istream &operator>>(std::istream &, CommissionWageWorker &);
+CommissionWageWorker enterCommissionWageWorker();
+
 std::ostream &operator<<(std::ostream &, const CommissionWageWorker &);

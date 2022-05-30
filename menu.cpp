@@ -12,7 +12,7 @@ bool Menu::handleError() const {
   return true;
 }
 
-bool Menu::handleError(const std::string msg) const {
+bool Menu::handleError(const std::string &msg) const {
   if (!std::cin.fail())
     return false;
 
@@ -24,13 +24,8 @@ bool Menu::handleError(const std::string msg) const {
 }
 
 void Menu::handleAddHourlyWageWorker() {
-  HourlyWageWorker worker;
-  std::cin >> worker;
-
-  if (handleError())
-    return;
-
   try {
+    HourlyWageWorker worker = enterHourlyWageWorker();
     company.recruitHourlyWageWorker(worker);
     std::cout << "Worker has been successfully recruited!\n";
   } catch (const std::exception &e) {
@@ -39,13 +34,8 @@ void Menu::handleAddHourlyWageWorker() {
 }
 
 void Menu::handleAddCommissionWageWorker() {
-  CommissionWageWorker worker;
-  std::cin >> worker;
-
-  if (handleError())
-    return;
-
   try {
+    CommissionWageWorker worker = enterCommissionWageWorker();
     company.recruitCommissionWageWorker(worker);
     std::cout << "Worker has been successfully recruited!\n";
   } catch (const std::exception &e) {
@@ -91,7 +81,7 @@ void Menu::handleSimulateWork() {
 
   if (handleError("Error! Invalid value. Expected unsigned integer\n"))
     return;
-  
+
   std::cout << "Expenses: " << company.simulateWork(days) << "\n";
   std::cout << "Worked days count: " << company.getWorkedDaysCount() << "\n";
 }
@@ -106,19 +96,22 @@ void Menu::handlePrintCommissionWageWorkers() const {
 }
 
 void Menu::listen() {
-  
-  
+
   // Тестовые данные
-  
-  /*
-  company.recruitHourlyWageWorker(HourlyWageWorker("Petr Petrov", Gender::Male, 500, 700, 10));
-  company.recruitHourlyWageWorker(HourlyWageWorker("Ivan Ivanov", Gender::Male, 700, 1000, 15));
-  company.recruitHourlyWageWorker(HourlyWageWorker("Ekaterina Pavlovna", Gender::Female, 650, 850, 11));
-  
-  company.recruitCommissionWageWorker(CommissionWageWorker("Dmitry Dmitrievich", Gender::Male, 50000, 5));
-  company.recruitCommissionWageWorker(CommissionWageWorker("Nataliya Adreevna", Gender::Female, 60500, 8));
-  company.recruitCommissionWageWorker(CommissionWageWorker("Aleksandr Aleksandrovich", Gender::Male, 54400, 15));
-  */
+
+  company.recruitHourlyWageWorker(
+      HourlyWageWorker("Petr Petrov", Gender::Male, 500, 700, 10));
+  company.recruitHourlyWageWorker(
+      HourlyWageWorker("Ivan Ivanov", Gender::Male, 700, 1000, 15));
+  company.recruitHourlyWageWorker(
+      HourlyWageWorker("Ekaterina Pavlovna", Gender::Female, 650, 850, 11));
+
+  company.recruitCommissionWageWorker(
+      CommissionWageWorker("Dmitry Dmitrievich", Gender::Male, 50000, 5));
+  company.recruitCommissionWageWorker(
+      CommissionWageWorker("Nataliya Adreevna", Gender::Female, 60500, 8));
+  company.recruitCommissionWageWorker(CommissionWageWorker(
+      "Aleksandr Aleksandrovich", Gender::Male, 54400, 15));
 
   while (true) {
     std::cout << "\n\tMenu options\n"

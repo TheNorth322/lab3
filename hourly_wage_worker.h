@@ -1,33 +1,18 @@
 #pragma once
 
 #include "common.h"
+#include "worker.h"
 #include <iostream>
 #include <stdexcept>
 #include <string>
 
-class HourlyWageWorker {
-private:
-  std::string fullName;
-  Gender gender;
-
-  int hoursWorked;
-  int standardOfWorkingHours;
-
-  int normalHourlyWage;
-  int overtimeHourlyWage;
-  
-  int workedDays;
-
+class HourlyWageWorker : public Worker {
 public:
   HourlyWageWorker()
-      : fullName(""), gender(Gender::Female), hoursWorked(0),
-        standardOfWorkingHours(0), normalHourlyWage(0), overtimeHourlyWage(0), workedDays(0) {}
+      : Worker(), hoursWorked(0), standardOfWorkingHours(0),
+        normalHourlyWage(0), overtimeHourlyWage(0), workedDays(0) {}
 
   HourlyWageWorker(std::string, Gender, int, int, int);
-
-  std::string getFullName() const;
-
-  Gender getGender() const;
 
   int getNormalHourlyWage() const;
 
@@ -37,8 +22,18 @@ public:
 
   void work(int);
 
-  int calcWage();
+  int calculateWage();
+
+private:
+  int hoursWorked;
+  int standardOfWorkingHours;
+
+  int normalHourlyWage;
+  int overtimeHourlyWage;
+
+  int workedDays;
 };
 
-std::istream &operator>>(std::istream &, HourlyWageWorker &);
+HourlyWageWorker enterHourlyWageWorker();
+
 std::ostream &operator<<(std::ostream &, const HourlyWageWorker &);

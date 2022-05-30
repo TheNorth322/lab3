@@ -4,19 +4,12 @@ HourlyWageWorker::HourlyWageWorker(std::string _fullName, Gender _gender,
                                    int _normalHourlyWage,
                                    int _overtimeHourlyWage,
                                    int _standardOfWorkingHours)
-    : fullName(_fullName), gender(_gender),
+    : Worker(_fullName, _gender),
       standardOfWorkingHours(_standardOfWorkingHours),
       normalHourlyWage(_normalHourlyWage),
-      overtimeHourlyWage(_overtimeHourlyWage) {
-  hoursWorked = 0;
-  workedDays = 0;
+      overtimeHourlyWage(_overtimeHourlyWage), hoursWorked(0), workedDays(0) {
 
-  if (fullName.length() == 0) {
-    throw std::invalid_argument(
-        "Invalid 'fullName' argument. The length must be non-zero");
-  }
-
-  if (standardOfWorkingHours <= 0) {
+  if (standardOfWorkingHours <= 0 && standardOfWorkingHours > 24) {
     throw std::invalid_argument("Invalid 'standardOfWorkingHours' argument. "
                                 "Value must be greater than zero");
   }
@@ -32,10 +25,6 @@ HourlyWageWorker::HourlyWageWorker(std::string _fullName, Gender _gender,
   }
 }
 
-std::string HourlyWageWorker::getFullName() const { return fullName; }
-
-Gender HourlyWageWorker::getGender() const { return gender; }
-
 int HourlyWageWorker::getNormalHourlyWage() const { return normalHourlyWage; }
 
 int HourlyWageWorker::getOvertimeHourlyWage() const {
@@ -46,12 +35,12 @@ int HourlyWageWorker::getStandardOfWorkingHours() const {
   return standardOfWorkingHours;
 }
 
-void HourlyWageWorker::work(int hours) { 
-  hoursWorked += hours; 
-  workedDays++; 
+void HourlyWageWorker::work(int hours) {
+  hoursWorked += hours;
+  workedDays++;
 }
 
-int HourlyWageWorker::calcWage() {
+int HourlyWageWorker::calculateWage() {
   int normalHoursWorked = hoursWorked < standardOfWorkingHours * workedDays
                               ? hoursWorked
                               : standardOfWorkingHours * workedDays;
@@ -64,57 +53,48 @@ int HourlyWageWorker::calcWage() {
          overtimeHoursWorked * overtimeHourlyWage;
 }
 
-std::istream &operator>>(std::istream &stream, HourlyWageWorker &worker) {
+HourlyWageWorker enterHourlyWageWorker() {
   Gender gender;
   std::string fullName;
   int normalHourlyWage, overtimeHourlyWage, standardOfWorkingHours;
 
   std::cout << "Enter fullname: ";
 
-  stream.get();
-  std::getline(stream, fullName);
+  std::cin.get();
+  std::getline(std::cin, fullName);
 
   std::cout << "Enter gender(1 - Male, 2 - Female): ";
-  stream >> gender;
+  std::cin >> gender;
 
-  if (stream.fail()) {
-    std::cerr << "Error! Invalid value. Expected '1' or '2'\n";
-    return stream;
+  if (std::cin.fail()) {
+    throw std::invalid_argument("Invalid value. Expected '1' or '2'\n");
   }
 
   std::cout << "Enter normal hourly wage: ";
-  stream >> normalHourlyWage;
+  std::cin >> normalHourlyWage;
 
-  if (stream.fail()) {
-    std::cerr << "Error! Invalid value. Expected integer\n";
-    return stream;
+  if (std::cin.fail()) {
+    throw std::invalid_argument("Invalid value. Expected integer\n");
   }
 
   std::cout << "Enter overtime wage: ";
-  stream >> overtimeHourlyWage;
+  std::cin >> overtimeHourlyWage;
 
-  if (stream.fail()) {
-    std::cerr << "Error! Invalid value. Expected integer\n";
-    return stream;
+  if (std::cin.fail()) {
+    throw std::invalid_argument("Invalid value. Expected integer\n");
   }
 
   std::cout << "Enter standard of working hours: ";
-  stream >> standardOfWorkingHours;
+  std::cin >> standardOfWorkingHours;
 
-  if (stream.fail()) {
-    std::cerr << "Error! Invalid value. Expected integer\n";
-    return stream;
+  if (std::cin.fail()) {
+    throw std::invalid_argument("Invalid value. Expected integer\n");
   }
 
-  try {
-    worker = HourlyWageWorker(fullName, gender, standardOfWorkingHours,
-                              normalHourlyWage, overtimeHourlyWage);
-  } catch (const std::exception &e) {
-    std::cerr << "Error! " << e.what() << "\n";
-    stream.setstate(std::iostream::failbit);
-  }
-
-  return stream;
+  HourlyWageWorker worker =
+      HourlyWageWorker(fullName, gender, normalHourlyWage, overtimeHourlyWage,
+                       standardOfWorkingHours);
+  return worker;
 }
 
 std::ostream &operator<<(std::ostream &stream, const HourlyWageWorker &worker) {

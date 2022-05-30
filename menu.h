@@ -2,7 +2,6 @@
 
 #include "company.h"
 #include "cstring"
-#include "vec.h"
 #include <limits>
 
 class Menu {
@@ -23,7 +22,7 @@ private:
   const std::size_t EXIT_OPTION = 7;
 
   bool handleError() const;
-  bool handleError(std::string) const;
+  bool handleError(const std::string&) const;
 
   void handleAddHourlyWageWorker();
 

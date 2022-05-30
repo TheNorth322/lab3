@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <vector>
 
 enum class Gender {
   Male = 1,
@@ -51,5 +52,16 @@ inline std::ostream &operator<<(std::ostream &stream, Gender gender) {
     break;
   }
 
+  return stream;
+}
+
+template <typename T>
+std::ostream &operator<<(std::ostream &stream, std::vector<T> vec) {
+  stream << "[ \n";
+
+  for (auto i : vec)
+    stream << i << ",\n";
+
+  stream << "] \n";
   return stream;
 }

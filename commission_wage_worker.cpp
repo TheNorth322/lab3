@@ -3,91 +3,73 @@
 CommissionWageWorker::CommissionWageWorker(std::string _fullName,
                                            Gender _gender, int _salary,
                                            int _percentage)
-    : fullName(_fullName), gender(_gender), salary(_salary),
-      percentage(_percentage) {
-  goodsSoldSum = 0;
-
-  if (fullName.length() == 0) {
-    throw std::invalid_argument(
-        "Invalid 'fullName' argument. The length must be non-zero");
-  }
+    : Worker(_fullName, _gender), salary(_salary), percentage(_percentage),
+      goodsSoldSum(0) {
 
   if (salary <= 0) {
     throw std::invalid_argument("Invalid 'salary' argument. "
                                 "Value must be greater than zero");
   }
 
-  if (percentage <= 0) {
+  if (percentage <= 0 && percentage > 100) {
     throw std::invalid_argument(
         "Invalid 'percentage' argument. "
         "Value must be greater than zero and less than 100");
   }
 }
 
-std::string CommissionWageWorker::getFullName() const { return fullName; }
-
-Gender CommissionWageWorker::getGender() const { return gender; }
-
 int CommissionWageWorker::getSalary() const { return salary; }
 
 int CommissionWageWorker::getPercentage() const { return percentage; }
 
-void CommissionWageWorker::sell(const int goodsSold) {
+void CommissionWageWorker::work(const int goodsSold) {
   goodsSoldSum += goodsSold;
 }
 
-int CommissionWageWorker::calcWage() {
+int CommissionWageWorker::calculateWage() {
   int addition = (int)((float)goodsSoldSum * (float)(percentage) / 100.);
   int wage = 0;
-  if (addition != 0) wage = salary + addition;
+  if (addition != 0)
+    wage = salary + addition;
 
   goodsSoldSum = 0;
 
   return wage;
 }
 
-std::istream &operator>>(std::istream &stream, CommissionWageWorker &worker) {
+CommissionWageWorker enterCommissionWageWorker() {
   Gender gender;
   std::string fullName;
-  int salary, percentage, goodsSoldSum;
+  int salary, percentage;
 
   std::cout << "Enter fullname: ";
-  
-  stream.get();
-  std::getline(stream, fullName);
+
+  std::cin.get();
+  std::getline(std::cin, fullName);
 
   std::cout << "Enter gender(1 - Male, 2 - Female): ";
-  stream >> gender;
+  std::cin >> gender;
 
-  if (stream.fail()) {
-    std::cerr << "Error! Invalid value. Expected '1' or '2'\n";
-    return stream;
+  if (std::cin.fail()) {
+    throw std::invalid_argument("Invalid value. Expected '1' or '2'\n");
   }
 
   std::cout << "Enter salary: ";
-  stream >> salary;
+  std::cin >> salary;
 
-  if (stream.fail()) {
-    std::cerr << "Error! Invalid value. Expected integer\n";
-    return stream;
+  if (std::cin.fail()) {
+    throw std::invalid_argument("Invalid value. Expected integer\n");
   }
 
   std::cout << "Enter percentage: ";
-  stream >> percentage;
+  std::cin >> percentage;
 
-  if (stream.fail()) {
-    std::cerr << "Error! Invalid value. Expected integer\n";
-    return stream;
+  if (std::cin.fail()) {
+    throw std::invalid_argument("Invalid value. Expected integer\n");
   }
-
-  try {
-    worker = CommissionWageWorker(fullName, gender, salary, percentage);
-  } catch (const std::exception &e) {
-    std::cerr << "Error! " << e.what() << "\n";
-    stream.setstate(std::iostream::failbit);
-  }
-
-  return stream;
+  CommissionWageWorker worker =
+      CommissionWageWorker(fullName, gender, salary, percentage);
+  return worker;
 }
 
 std::ostream &operator<<(std::ostream &stream,
