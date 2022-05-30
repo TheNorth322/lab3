@@ -8,10 +8,6 @@
 
 class HourlyWageWorker : public Worker {
 public:
-  HourlyWageWorker()
-      : Worker(), hoursWorked(0), standardOfWorkingHours(0),
-        normalHourlyWage(0), overtimeHourlyWage(0), workedDays(0) {}
-
   HourlyWageWorker(std::string, Gender, int, int, int);
 
   int getNormalHourlyWage() const;

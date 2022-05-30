@@ -8,9 +8,6 @@
 
 class CommissionWageWorker : public Worker {
 public:
-  CommissionWageWorker()
-      : Worker(), salary(0), percentage(0), goodsSoldSum(0) {}
-
   CommissionWageWorker(std::string, Gender, int, int);
 
   int getSalary() const;
