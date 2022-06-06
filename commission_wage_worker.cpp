@@ -67,8 +67,10 @@ CommissionWageWorker enterCommissionWageWorker() {
   if (std::cin.fail()) {
     throw std::invalid_argument("Invalid value. Expected integer\n");
   }
+
   CommissionWageWorker worker =
       CommissionWageWorker(fullName, gender, salary, percentage);
+
   return worker;
 }
 

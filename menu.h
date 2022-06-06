@@ -21,7 +21,6 @@ private:
   const std::size_t PRINT_COMMISSION_WAGE_WORKERS_OPTION = 6;
   const std::size_t EXIT_OPTION = 7;
 
-  bool handleError() const;
   bool handleError(const std::string&) const;
 
   void handleAddHourlyWageWorker();

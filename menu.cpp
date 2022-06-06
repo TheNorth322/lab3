@@ -2,16 +2,6 @@
 
 Menu::Menu() : company(Company()) {}
 
-bool Menu::handleError() const {
-  if (!std::cin.fail())
-    return false;
-
-  std::cin.clear();
-  std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-
-  return true;
-}
-
 bool Menu::handleError(const std::string &msg) const {
   if (!std::cin.fail())
     return false;

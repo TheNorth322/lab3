@@ -11,17 +11,17 @@ HourlyWageWorker::HourlyWageWorker(std::string _fullName, Gender _gender,
 
   if (standardOfWorkingHours <= 0 && standardOfWorkingHours > 24) {
     throw std::invalid_argument("Invalid 'standardOfWorkingHours' argument. "
-                                "Value must be greater than zero");
+                                "Value must be greater than zero.");
   }
 
   if (normalHourlyWage <= 0) {
     throw std::invalid_argument("Invalid 'normalHourlyWage' argument. "
-                                "Value must be greater than zero");
+                                "Value must be greater than zero.");
   }
 
   if (overtimeHourlyWage <= 0) {
     throw std::invalid_argument("Invalid 'overtimeHourlyWage' argument. "
-                                "Value must be greater than zero");
+                                "Value must be greater than zero.");
   }
 }
 

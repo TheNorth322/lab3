@@ -10,7 +10,7 @@ void Company::recruitHourlyWageWorker(HourlyWageWorker newWorker) {
     if (hourlyWageWorkers[i].getFullName() == newWorker.getFullName())
       throw std::invalid_argument("Worker with name '" +
                                   newWorker.getFullName() +
-                                  "' already recruited.");
+                                  "' already recruited");
 
   hourlyWageWorkers.push_back(newWorker);
 }
@@ -21,7 +21,7 @@ void Company::recruitCommissionWageWorker(CommissionWageWorker newWorker) {
     if (commissionWageWorkers[i].getFullName() == newWorker.getFullName())
       throw std::invalid_argument("Worker with name '" +
                                   newWorker.getFullName() +
-                                  "' already recruited.");
+                                  "' already recruited");
 
   commissionWageWorkers.push_back(newWorker);
 }
@@ -72,7 +72,8 @@ Company::getCommissionWageWorkers() const {
 }
 
 // Увольнение сотрудника по ФИО
-void Company::dismissWorkerByFullname(const std::string& fullName, Recruation status) {
+void Company::dismissWorkerByFullname(const std::string &fullName,
+                                      Recruation status) {
   if (status == Recruation::Both) {
     dismissHourlyWageWorker(fullName);
     dismissCommissionWageWorker(fullName);
@@ -94,10 +95,11 @@ std::size_t Company::simulateWork(int days) {
     for (std::size_t i = 0; i < hourlyWageWorkers.size(); i++) {
       HourlyWageWorker &worker = hourlyWageWorkers[i];
 
-      std::size_t min = worker.getStandardOfWorkingHours();
-      std::size_t max = min + (24 - min) / 2;
+      std::size_t min_working_hours = worker.getStandardOfWorkingHours();
+      std::size_t max_working_hours =
+          min_working_hours + (24 - min_working_hours) / 2;
 
-      worker.work(std::rand() % max);
+      worker.work(std::rand() % max_working_hours);
     }
 
     for (std::size_t i = 0; i < commissionWageWorkers.size(); i++) {
