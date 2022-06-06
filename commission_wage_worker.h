@@ -14,9 +14,9 @@ public:
 
   int getPercentage() const;
 
-  void work(int);
+  void work(int) override;
 
-  int calculateWage();
+  int calculateWage() override;
 
 private:
   int salary;
